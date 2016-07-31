@@ -23,7 +23,7 @@
     <dependency>
       <groupId>net.sourceforge.nekohtml</groupId>
       <artifactId>nekohtml</artifactId>
-      <version>1.9.19</version>
+      <version>1.9.22</version>
     </dependency>
     <dependency>
       <groupId>org.eclipse.core</groupId>
@@ -31,14 +31,10 @@
       <version>3.3.100-v20070530</version>
     </dependency>
     <dependency>
-      <groupId>xerces</groupId>
-      <artifactId>xercesImpl</artifactId>
-      <version>2.9.1</version>
-    </dependency>
-    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.8.1</version>
+      <version>4.12</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 
