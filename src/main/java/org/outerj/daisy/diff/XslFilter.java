@@ -51,16 +51,36 @@ public class XslFilter {
             transHand.setResult(new SAXResult(consumer));
 
             return transHand;
-
-        } catch (TransformerConfigurationException e) {
-            e.printStackTrace();
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-        } catch (TransformerFactoryConfigurationError e) {
-            e.printStackTrace();
+        } catch (Throwable t) {
+            t.printStackTrace();
+            throw new IllegalStateException("Can't transform XML. xslPath=" + xslPath + " - " + t.getMessage(), t);
         }
-        throw new IllegalStateException("Can't transform xml.");
-
     }
 
+    public ContentHandler xsl(ContentHandler consumer, StreamSource xslStream)
+            throws IOException {
+
+        try {
+            // Create transformer factory
+            TransformerFactory factory = TransformerFactory.newInstance();
+
+            // Use the factory to create a template containing the xsl file
+            Templates template = factory.newTemplates(xslStream);
+
+            // Use the template to create a transformer
+            TransformerFactory transFact = TransformerFactory.newInstance();
+            SAXTransformerFactory saxTransFact = (SAXTransformerFactory) transFact;
+            // create a ContentHandler
+            TransformerHandler transHand = saxTransFact
+                    .newTransformerHandler(template);
+
+            transHand.setResult(new SAXResult(consumer));
+
+            return transHand;
+        } catch (Throwable t) {
+            t.printStackTrace();
+            throw new IllegalStateException("Can't transform XML." + t.toString(), t);
+        }
+    }
 }
+
